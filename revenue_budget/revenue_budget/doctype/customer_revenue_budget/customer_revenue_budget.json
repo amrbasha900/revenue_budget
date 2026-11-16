@@ -1,184 +1,223 @@
 {
-  "doctype": "DocType",
-  "name": "Customer Revenue Budget",
-  "module": "Revenue Budget",
-  "istable": 0,
-  "editable_grid": 0,
-  "is_submittable": 1,
-  "track_changes": 1,
-  "autoname": "",
-  "field_order": [
-    "company",
-    "customer",
-    "fiscal_year",
-    "budget_month",
-    "currency",
-    "exchange_rate",
-    "budget_status",
-    "revision_no",
-    "series_key",
-    "supersedes",
-    "superseded_by",
-    "items",
-    "total_gross_revenue",
-    "total_discount_amount",
-    "total_net_revenue",
-    "total_net_revenue_base"
-  ],
-  "fields": [
-    {
-      "fieldname": "company",
-      "fieldtype": "Link",
-      "label": "Company",
-      "options": "Company",
-      "reqd": 1,
-      "in_list_view": 1
-    },
-    {
-      "fieldname": "customer",
-      "fieldtype": "Link",
-      "label": "Customer",
-      "options": "Customer",
-      "reqd": 1,
-      "in_list_view": 1
-    },
-    {
-      "fieldname": "fiscal_year",
-      "fieldtype": "Link",
-      "label": "Fiscal Year",
-      "options": "Fiscal Year",
-      "reqd": 1
-    },
-    {
-      "fieldname": "budget_month",
-      "fieldtype": "Select",
-      "label": "Budget Month",
-      "options": "January\nFebruary\nMarch\nApril\nMay\nJune\nJuly\nAugust\nSeptember\nOctober\nNovember\nDecember",
-      "reqd": 1,
-      "in_list_view": 1
-    },
-    {
-      "fieldname": "currency",
-      "fieldtype": "Link",
-      "label": "Currency",
-      "options": "Currency",
-      "reqd": 1
-    },
-    {
-      "fieldname": "exchange_rate",
-      "fieldtype": "Float",
-      "label": "Exchange Rate",
-      "default": "1",
-      "reqd": 1
-    },
-    {
-      "fieldname": "budget_status",
-      "fieldtype": "Select",
-      "label": "Budget Status",
-      "options": "Draft\nActive\nSuperseded\nCancelled",
-      "default": "Draft",
-      "read_only": 1,
-      "in_list_view": 1
-    },
-    {
-      "fieldname": "revision_no",
-      "fieldtype": "Int",
-      "label": "Revision",
-      "default": "1",
-      "read_only": 1
-    },
-    {
-      "fieldname": "series_key",
-      "fieldtype": "Data",
-      "label": "Series Key",
-      "hidden": 1,
-      "read_only": 1
-    },
-    {
-      "fieldname": "supersedes",
-      "fieldtype": "Link",
-      "label": "Supersedes",
-      "options": "Customer Revenue Budget",
-      "read_only": 1
-    },
-    {
-      "fieldname": "superseded_by",
-      "fieldtype": "Link",
-      "label": "Superseded By",
-      "options": "Customer Revenue Budget",
-      "read_only": 1
-    },
-    {
-      "fieldname": "items",
-      "fieldtype": "Table",
-      "label": "Items",
-      "options": "Revenue Budget Item",
-      "reqd": 1
-    },
-    {
-      "fieldname": "total_gross_revenue",
-      "fieldtype": "Currency",
-      "label": "Gross Total",
-      "options": "currency",
-      "read_only": 1
-    },
-    {
-      "fieldname": "total_discount_amount",
-      "fieldtype": "Currency",
-      "label": "Discount Total",
-      "options": "currency",
-      "read_only": 1
-    },
-    {
-      "fieldname": "total_net_revenue",
-      "fieldtype": "Currency",
-      "label": "Net Total",
-      "options": "currency",
-      "read_only": 1
-    },
-    {
-      "fieldname": "total_net_revenue_base",
-      "fieldtype": "Currency",
-      "label": "Net Total (Base)",
-      "read_only": 1
-    }
-  ],
-  "permissions": [
-    {
-      "role": "System Manager",
-      "read": 1,
-      "write": 1,
-      "create": 1,
-      "report": 1,
-      "export": 1,
-      "submit": 1
-    },
-    {
-      "role": "Accounts Manager",
-      "read": 1,
-      "write": 1,
-      "create": 1,
-      "report": 1,
-      "export": 1,
-      "submit": 1
-    },
-    {
-      "role": "Sales Manager",
-      "read": 1,
-      "write": 1,
-      "create": 1,
-      "report": 1,
-      "export": 1,
-      "submit": 1
-    },
-    {
-      "role": "Accounts User",
-      "read": 1,
-      "write": 1,
-      "create": 1,
-      "report": 1,
-      "export": 1,
-      "submit": 0
-    }
-  ]
+ "actions": [],
+ "creation": "2026-11-16 12:35:41.532149",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "customer",
+  "fiscal_year",
+  "budget_month",
+  "revision_no",
+  "series_key",
+  "supersedes",
+  "superseded_by",
+  "column_break_krlg",
+  "budget_status",
+  "company",
+  "currency",
+  "exchange_rate",
+  "amended_from",
+  "items_section",
+  "items",
+  "section_break_kgrb",
+  "total_net_revenue_base",
+  "total_net_revenue",
+  "column_break_imwv",
+  "total_discount_amount",
+  "total_gross_revenue"
+ ],
+ "fields": [
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Company",
+   "options": "Company",
+   "reqd": 1
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Customer",
+   "options": "Customer",
+   "reqd": 1
+  },
+  {
+   "fieldname": "fiscal_year",
+   "fieldtype": "Link",
+   "label": "Fiscal Year",
+   "options": "Fiscal Year",
+   "reqd": 1
+  },
+  {
+   "fieldname": "budget_month",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Budget Month",
+   "options": "January\nFebruary\nMarch\nApril\nMay\nJune\nJuly\nAugust\nSeptember\nOctober\nNovember\nDecember",
+   "reqd": 1
+  },
+  {
+   "fieldname": "currency",
+   "fieldtype": "Link",
+   "label": "Currency",
+   "options": "Currency",
+   "reqd": 1
+  },
+  {
+   "default": "1",
+   "fieldname": "exchange_rate",
+   "fieldtype": "Float",
+   "label": "Exchange Rate",
+   "reqd": 1
+  },
+  {
+   "default": "Draft",
+   "fieldname": "budget_status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Budget Status",
+   "options": "Draft\nActive\nSuperseded\nCancelled",
+   "read_only": 1
+  },
+  {
+   "default": "1",
+   "fieldname": "revision_no",
+   "fieldtype": "Int",
+   "label": "Revision",
+   "read_only": 1
+  },
+  {
+   "fieldname": "series_key",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Series Key",
+   "read_only": 1
+  },
+  {
+   "fieldname": "supersedes",
+   "fieldtype": "Link",
+   "label": "Supersedes",
+   "options": "Customer Revenue Budget",
+   "read_only": 1
+  },
+  {
+   "fieldname": "superseded_by",
+   "fieldtype": "Link",
+   "label": "Superseded By",
+   "options": "Customer Revenue Budget",
+   "read_only": 1
+  },
+  {
+   "fieldname": "items",
+   "fieldtype": "Table",
+   "label": "Items",
+   "options": "Revenue Budget Item",
+   "reqd": 1
+  },
+  {
+   "fieldname": "total_gross_revenue",
+   "fieldtype": "Currency",
+   "label": "Gross Total",
+   "options": "currency",
+   "read_only": 1
+  },
+  {
+   "fieldname": "total_discount_amount",
+   "fieldtype": "Currency",
+   "label": "Discount Total",
+   "options": "currency",
+   "read_only": 1
+  },
+  {
+   "fieldname": "total_net_revenue",
+   "fieldtype": "Currency",
+   "label": "Net Total",
+   "options": "currency",
+   "read_only": 1
+  },
+  {
+   "fieldname": "total_net_revenue_base",
+   "fieldtype": "Currency",
+   "label": "Net Total (Base)",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_krlg",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Customer Revenue Budget",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "items_section",
+   "fieldtype": "Section Break",
+   "label": "Items"
+  },
+  {
+   "fieldname": "section_break_kgrb",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_imwv",
+   "fieldtype": "Column Break"
+  }
+ ],
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2026-11-16 12:47:24.337396",
+ "modified_by": "Administrator",
+ "module": "Revenue Budget",
+ "name": "Customer Revenue Budget",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "export": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "export": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Accounts Manager",
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "export": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Sales Manager",
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "export": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Accounts User",
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
 }
