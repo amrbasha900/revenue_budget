@@ -1,0 +1,67 @@
+{
+  "doctype": "DocType",
+  "name": "Revenue Budget Change Detail",
+  "module": "Revenue Budget",
+  "istable": 1,
+  "editable_grid": 1,
+  "is_submittable": 0,
+  "track_changes": 0,
+  "field_order": [
+    "item_code",
+    "new_item_code",
+    "new_qty",
+    "new_rate",
+    "new_discount_percentage",
+    "old_qty",
+    "old_rate",
+    "old_discount_percentage"
+  ],
+  "fields": [
+    {
+      "fieldname": "item_code",
+      "fieldtype": "Link",
+      "label": "Existing Item",
+      "options": "Item"
+    },
+    {
+      "fieldname": "new_item_code",
+      "fieldtype": "Link",
+      "label": "New Item",
+      "options": "Item"
+    },
+    {
+      "fieldname": "new_qty",
+      "fieldtype": "Float",
+      "label": "New Quantity"
+    },
+    {
+      "fieldname": "new_rate",
+      "fieldtype": "Currency",
+      "label": "New Price"
+    },
+    {
+      "fieldname": "new_discount_percentage",
+      "fieldtype": "Percent",
+      "label": "New Discount %"
+    },
+    {
+      "fieldname": "old_qty",
+      "fieldtype": "Float",
+      "label": "Old Quantity",
+      "read_only": 1
+    },
+    {
+      "fieldname": "old_rate",
+      "fieldtype": "Currency",
+      "label": "Old Price",
+      "read_only": 1
+    },
+    {
+      "fieldname": "old_discount_percentage",
+      "fieldtype": "Percent",
+      "label": "Old Discount",
+      "read_only": 1
+    }
+  ],
+  "permissions": []
+}

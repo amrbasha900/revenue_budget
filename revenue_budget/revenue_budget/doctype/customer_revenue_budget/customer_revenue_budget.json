@@ -1,0 +1,184 @@
+{
+  "doctype": "DocType",
+  "name": "Customer Revenue Budget",
+  "module": "Revenue Budget",
+  "istable": 0,
+  "editable_grid": 0,
+  "is_submittable": 1,
+  "track_changes": 1,
+  "autoname": "format:RB-.YYYY.-.#####",
+  "field_order": [
+    "company",
+    "customer",
+    "fiscal_year",
+    "budget_month",
+    "currency",
+    "exchange_rate",
+    "budget_status",
+    "revision_no",
+    "series_key",
+    "supersedes",
+    "superseded_by",
+    "items",
+    "total_gross_revenue",
+    "total_discount_amount",
+    "total_net_revenue",
+    "total_net_revenue_base"
+  ],
+  "fields": [
+    {
+      "fieldname": "company",
+      "fieldtype": "Link",
+      "label": "Company",
+      "options": "Company",
+      "reqd": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "customer",
+      "fieldtype": "Link",
+      "label": "Customer",
+      "options": "Customer",
+      "reqd": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "fiscal_year",
+      "fieldtype": "Link",
+      "label": "Fiscal Year",
+      "options": "Fiscal Year",
+      "reqd": 1
+    },
+    {
+      "fieldname": "budget_month",
+      "fieldtype": "Select",
+      "label": "Budget Month",
+      "options": "January\nFebruary\nMarch\nApril\nMay\nJune\nJuly\nAugust\nSeptember\nOctober\nNovember\nDecember",
+      "reqd": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "currency",
+      "fieldtype": "Link",
+      "label": "Currency",
+      "options": "Currency",
+      "reqd": 1
+    },
+    {
+      "fieldname": "exchange_rate",
+      "fieldtype": "Float",
+      "label": "Exchange Rate",
+      "default": "1",
+      "reqd": 1
+    },
+    {
+      "fieldname": "budget_status",
+      "fieldtype": "Select",
+      "label": "Budget Status",
+      "options": "Draft\nActive\nSuperseded\nCancelled",
+      "default": "Draft",
+      "read_only": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "revision_no",
+      "fieldtype": "Int",
+      "label": "Revision",
+      "default": "1",
+      "read_only": 1
+    },
+    {
+      "fieldname": "series_key",
+      "fieldtype": "Data",
+      "label": "Series Key",
+      "hidden": 1,
+      "read_only": 1
+    },
+    {
+      "fieldname": "supersedes",
+      "fieldtype": "Link",
+      "label": "Supersedes",
+      "options": "Customer Revenue Budget",
+      "read_only": 1
+    },
+    {
+      "fieldname": "superseded_by",
+      "fieldtype": "Link",
+      "label": "Superseded By",
+      "options": "Customer Revenue Budget",
+      "read_only": 1
+    },
+    {
+      "fieldname": "items",
+      "fieldtype": "Table",
+      "label": "Items",
+      "options": "Revenue Budget Item",
+      "reqd": 1
+    },
+    {
+      "fieldname": "total_gross_revenue",
+      "fieldtype": "Currency",
+      "label": "Gross Total",
+      "options": "currency",
+      "read_only": 1
+    },
+    {
+      "fieldname": "total_discount_amount",
+      "fieldtype": "Currency",
+      "label": "Discount Total",
+      "options": "currency",
+      "read_only": 1
+    },
+    {
+      "fieldname": "total_net_revenue",
+      "fieldtype": "Currency",
+      "label": "Net Total",
+      "options": "currency",
+      "read_only": 1
+    },
+    {
+      "fieldname": "total_net_revenue_base",
+      "fieldtype": "Currency",
+      "label": "Net Total (Base)",
+      "read_only": 1
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "report": 1,
+      "export": 1,
+      "submit": 1
+    },
+    {
+      "role": "Accounts Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "report": 1,
+      "export": 1,
+      "submit": 1
+    },
+    {
+      "role": "Sales Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "report": 1,
+      "export": 1,
+      "submit": 1
+    },
+    {
+      "role": "Accounts User",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "report": 1,
+      "export": 1,
+      "submit": 0
+    }
+  ]
+}
