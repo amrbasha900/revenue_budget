@@ -6,7 +6,7 @@
   "editable_grid": 0,
   "is_submittable": 1,
   "track_changes": 1,
-  "autoname": "format:RB-.YYYY.-.#####",
+  "autoname": "",
   "field_order": [
     "company",
     "customer",

@@ -1,9 +1,26 @@
+import re
+
 import frappe
 from frappe import _
 from frappe.model.document import Document
 from frappe.utils import flt
 
 class CustomerRevenueBudget(Document):
+    def autoname(self):
+        # The period identifies the budget; the revision keeps historical names unique.
+        months = [
+            "January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December",
+        ]
+        if not self.customer or not self.fiscal_year or self.budget_month not in months:
+            frappe.throw(_("Customer, fiscal year and month are required for naming."))
+        customer_part = re.sub(r"[^\\w-]+", "-", self.customer, flags=re.UNICODE).strip("-")
+        year_part = re.sub(r"[^\\w-]+", "-", self.fiscal_year, flags=re.UNICODE).strip("-")
+        month_part = f"{months.index(self.budget_month) + 1:02d}"
+        if not customer_part or not year_part:
+            frappe.throw(_("Invalid customer or fiscal year for naming."))
+        self.name = f"{customer_part}-{year_part}-{month_part}-V{int(self.revision_no or 1)}"
+
     def validate(self):
         if not self.is_new():
             old = self.get_doc_before_save()
@@ -13,6 +30,8 @@ class CustomerRevenueBudget(Document):
             frappe.throw(_("Budget status is managed by the system."))
         if flt(self.exchange_rate) <= 0:
             frappe.throw(_("Exchange rate must be positive."))
+        if self.is_new() and not self.flags.revision_application and int(self.revision_no or 1) != 1:
+            frappe.throw(_("New budgets must start at revision 1."))
         if not self.items:
             frappe.throw(_("At least one budget item is required."))
         seen = set()
