@@ -14,8 +14,8 @@ class CustomerRevenueBudget(Document):
         ]
         if not self.customer or not self.fiscal_year or self.budget_month not in months:
             frappe.throw(_("Customer, fiscal year and month are required for naming."))
-        customer_part = re.sub(r"[^\\w-]+", "-", self.customer, flags=re.UNICODE).strip("-")
-        year_part = re.sub(r"[^\\w-]+", "-", self.fiscal_year, flags=re.UNICODE).strip("-")
+        customer_part = re.sub(r"[^\w-]+", "-", self.customer, flags=re.UNICODE).strip("-")
+        year_part = re.sub(r"[^\w-]+", "-", self.fiscal_year, flags=re.UNICODE).strip("-")
         month_part = f"{months.index(self.budget_month) + 1:02d}"
         if not customer_part or not year_part:
             frappe.throw(_("Invalid customer or fiscal year for naming."))
