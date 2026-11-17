@@ -6,7 +6,7 @@
   "public": 1,
   "is_hidden": 0,
   "icon": "chart",
-  "content": "[{\"type\":\"header\",\"data\":{\"text\":\"Revenue Budget\"}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Customer Revenue Budget\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Revenue Budget Change Request\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Revenue Budget Summary\",\"col\":3}}]",
+  "content": "[{\"type\":\"header\",\"data\":{\"text\":\"Revenue Budget\"}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Customer Revenue Budget\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Revenue Budget Change Request\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Revenue Budget Summary\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Revenue Budget Monthly Mix\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Revenue Budget Mix Analysis\",\"col\":3}}]",
   "shortcuts": [
     {
       "type": "DocType",
@@ -22,6 +22,16 @@
       "type": "Report",
       "link_to": "Revenue Budget Summary",
       "label": "Revenue Budget Summary"
+    },
+    {
+      "type": "Report",
+      "link_to": "Revenue Budget Monthly Mix",
+      "label": "Revenue Budget Monthly Mix"
+    },
+    {
+      "type": "Report",
+      "link_to": "Revenue Budget Mix Analysis",
+      "label": "Revenue Budget Mix Analysis"
     }
   ],
   "links": [],
