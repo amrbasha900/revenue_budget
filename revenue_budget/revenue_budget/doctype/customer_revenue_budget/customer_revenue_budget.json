@@ -5,6 +5,7 @@
  "engine": "InnoDB",
  "field_order": [
   "customer",
+  "customer_category",
   "fiscal_year",
   "budget_month",
   "revision_no",
@@ -175,11 +176,18 @@
   {
    "fieldname": "column_break_imwv",
    "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "customer_category",
+   "fieldtype": "Link",
+   "label": "Customer Category",
+   "options": "Revenue Budget Customer Category",
+   "reqd": 1
   }
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2026-11-16 15:25:12.750191",
+ "modified": "2026-11-17 17:23:03.456673",
  "modified_by": "Administrator",
  "module": "Revenue Budget",
  "name": "Customer Revenue Budget",
