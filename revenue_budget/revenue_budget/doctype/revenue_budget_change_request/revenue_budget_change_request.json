@@ -1,112 +1,135 @@
 {
-  "doctype": "DocType",
-  "name": "Revenue Budget Change Request",
-  "module": "Revenue Budget",
-  "istable": 0,
-  "editable_grid": 0,
-  "is_submittable": 1,
-  "track_changes": 1,
-  "autoname": "format:RB-.YYYY.-.#####",
-  "field_order": [
-    "budget",
-    "change_type",
-    "reason",
-    "request_status",
-    "details",
-    "new_exchange_rate",
-    "result_budget",
-    "impact_net_revenue"
-  ],
-  "fields": [
-    {
-      "fieldname": "budget",
-      "fieldtype": "Link",
-      "label": "Active Budget",
-      "options": "Customer Revenue Budget",
-      "reqd": 1
-    },
-    {
-      "fieldname": "change_type",
-      "fieldtype": "Select",
-      "label": "Change Type",
-      "options": "Price Change\nQuantity Change\nPrice and Quantity Change\nDiscount Change\nExchange Rate Change\nAdd Item\nRemove Item\nReplace Item\nCancel Budget",
-      "reqd": 1
-    },
-    {
-      "fieldname": "reason",
-      "fieldtype": "Small Text",
-      "label": "Reason",
-      "reqd": 1
-    },
-    {
-      "fieldname": "request_status",
-      "fieldtype": "Select",
-      "label": "Request Status",
-      "options": "Draft\nApplied",
-      "default": "Draft",
-      "read_only": 1
-    },
-    {
-      "fieldname": "details",
-      "fieldtype": "Table",
-      "label": "Changes",
-      "options": "Revenue Budget Change Detail"
-    },
-    {
-      "fieldname": "new_exchange_rate",
-      "fieldtype": "Float",
-      "label": "New Exchange Rate"
-    },
-    {
-      "fieldname": "result_budget",
-      "fieldtype": "Link",
-      "label": "Result Version",
-      "options": "Customer Revenue Budget",
-      "read_only": 1
-    },
-    {
-      "fieldname": "impact_net_revenue",
-      "fieldtype": "Currency",
-      "label": "Impact (Base)",
-      "read_only": 1
-    }
-  ],
-  "permissions": [
-    {
-      "role": "System Manager",
-      "read": 1,
-      "write": 1,
-      "create": 1,
-      "report": 1,
-      "export": 1,
-      "submit": 1
-    },
-    {
-      "role": "Accounts Manager",
-      "read": 1,
-      "write": 1,
-      "create": 1,
-      "report": 1,
-      "export": 1,
-      "submit": 1
-    },
-    {
-      "role": "Sales Manager",
-      "read": 1,
-      "write": 1,
-      "create": 1,
-      "report": 1,
-      "export": 1,
-      "submit": 1
-    },
-    {
-      "role": "Accounts User",
-      "read": 1,
-      "write": 1,
-      "create": 1,
-      "report": 1,
-      "export": 1,
-      "submit": 0
-    }
-  ]
+ "actions": [],
+ "autoname": "format:RB-{YYYY}-{#####}",
+ "creation": "2026-11-16 12:14:43.511812",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "budget",
+  "request_status",
+  "change_type",
+  "reason",
+  "details",
+  "new_exchange_rate",
+  "result_budget",
+  "impact_net_revenue",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "budget",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Active Budget",
+   "options": "Customer Revenue Budget",
+   "reqd": 1
+  },
+  {
+   "fieldname": "change_type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Change Type",
+   "options": "Price Change\nQuantity Change\nPrice and Quantity Change\nDiscount Change\nExchange Rate Change\nAdd Item\nRemove Item\nReplace Item\nCancel Budget",
+   "reqd": 1
+  },
+  {
+   "fieldname": "reason",
+   "fieldtype": "Small Text",
+   "in_list_view": 1,
+   "label": "Reason",
+   "reqd": 1
+  },
+  {
+   "default": "Draft",
+   "fieldname": "request_status",
+   "fieldtype": "Select",
+   "label": "Request Status",
+   "options": "Draft\nApplied",
+   "read_only": 1
+  },
+  {
+   "fieldname": "details",
+   "fieldtype": "Table",
+   "label": "Changes",
+   "options": "Revenue Budget Change Detail"
+  },
+  {
+   "fieldname": "new_exchange_rate",
+   "fieldtype": "Float",
+   "label": "New Exchange Rate"
+  },
+  {
+   "fieldname": "result_budget",
+   "fieldtype": "Link",
+   "label": "Result Version",
+   "options": "Customer Revenue Budget",
+   "read_only": 1
+  },
+  {
+   "fieldname": "impact_net_revenue",
+   "fieldtype": "Currency",
+   "label": "Impact (Base)",
+   "read_only": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Revenue Budget Change Request",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  }
+ ],
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2026-11-17 17:13:59.228009",
+ "modified_by": "Administrator",
+ "module": "Revenue Budget",
+ "name": "Revenue Budget Change Request",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "export": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "export": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Accounts Manager",
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "export": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Sales Manager",
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "export": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Accounts User",
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
 }
