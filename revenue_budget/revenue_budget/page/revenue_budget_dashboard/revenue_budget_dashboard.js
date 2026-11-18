@@ -81,7 +81,9 @@ frappe.pages["revenue-budget-dashboard"].on_page_load = function (wrapper) {
   initializing = false;
   if (defaultCompany && defaultFiscalYear) setTimeout(load, 0);
   const escape = value => frappe.utils.escape_html(String(value ?? ""));
-  // frappe.format returns markup (e.g. numeric alignment divs); never embed it in a KPI value.\n  const numberFormatter = precision => new Intl.NumberFormat("en-US", {minimumFractionDigits:precision,maximumFractionDigits:precision});\n  const format = (value, precision=0) => numberFormatter(precision).format(Number(value || 0));
+  // Use plain text numbers; frappe.format() returns HTML in this context.
+  const numberFormatter = precision => new Intl.NumberFormat("en-US", {minimumFractionDigits:precision,maximumFractionDigits:precision});
+  const format = (value, precision=0) => numberFormatter(precision).format(Number(value || 0));
   const money = (value, currency) => format(value, 2) + (currency ? " " + escape(currency) : "");
   const card = (label, value, subtitle="", numeric=false) => `<div class="rbd-card">
     <div class="rbd-label">${escape(label)}</div><div class="rbd-val ${numeric ? "rbd-num" : ""}" title="${escape(String(value).replace(/<[^>]*>/g, ""))}">${value}</div>
