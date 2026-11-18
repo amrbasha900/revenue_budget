@@ -11,6 +11,8 @@ frappe.pages["revenue-budget-dashboard"].on_page_load = function (wrapper) {
       .rbd-hero h2{font-weight:750;font-size:25px;color:white;margin:0 0 6px}
       .rbd-hero p{color:#dbeafe;margin:0;font-size:13px}
       .rbd-tag{padding:7px 11px;border-radius:999px;background:#ffffff24;color:white;font-size:12px;font-weight:600}
+      .rbd-filters{display:grid;grid-template-columns:repeat(auto-fit,minmax(185px,1fr));gap:12px;padding:18px;margin:0 0 20px;background:var(--card-bg,var(--fg-color));border:1px solid var(--border-color);border-radius:13px;align-items:end}
+      .rbd-filter{min-width:0}.rbd-filter .form-group{margin-bottom:0}.rbd-filter .control-label{font-size:12px;font-weight:600}
       .rbd-summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-bottom:18px}
       .rbd-card,.rbd-panel{background:var(--card-bg,var(--fg-color));border:1px solid var(--border-color);border-radius:13px;min-width:0}
       .rbd-card{padding:17px;min-height:107px}
@@ -37,6 +39,7 @@ frappe.pages["revenue-budget-dashboard"].on_page_load = function (wrapper) {
         <p>${__("Planned budgets only · Submitted active versions · After-discount rankings")}</p></div>
         <span class="rbd-tag">${__("Budget Intelligence")}</span>
       </div>
+      <div class="rbd-filters" aria-label="Revenue Budget Filters"></div>
       <div class="rbd-body"><div class="rbd-empty">${__("Select company and fiscal year to view the dashboard")}</div></div>
     </div>`);
   const root = page.main.find(".rbd");
@@ -51,12 +54,32 @@ frappe.pages["revenue-budget-dashboard"].on_page_load = function (wrapper) {
   ];
   let generation = 0;
   let refreshTimer;
+  // Render filters explicitly in the dashboard body. The Desk toolbar
+  // can collapse or hide page.add_field controls depending on the layout.
+  const filterHost = root.find(".rbd-filters");
+  let initializing = true;
   definitions.forEach(([fieldname, label, fieldtype, options, reqd]) => {
-    fields[fieldname] = page.add_field({
-      fieldname, label: __(label), fieldtype, options, reqd: !!reqd,
-      change: () => { clearTimeout(refreshTimer); refreshTimer = setTimeout(load, 180); }
+    const container = $('<div class="rbd-filter"></div>').appendTo(filterHost);
+    fields[fieldname] = frappe.ui.form.make_control({
+      parent: container,
+      df: {
+        fieldname, label: __(label), fieldtype, options, reqd: !!reqd,
+        change: () => {
+          if (initializing) return;
+          clearTimeout(refreshTimer);
+          refreshTimer = setTimeout(load, 220);
+        }
+      },
+      render_input: true
     });
   });
+  // Choose a sensible initial company, then the matching fiscal year.
+  const defaultCompany = frappe.defaults.get_user_default("Company");
+  const defaultFiscalYear = frappe.defaults.get_user_default("fiscal_year");
+  if (defaultCompany) fields.company.set_value(defaultCompany);
+  if (defaultFiscalYear) fields.fiscal_year.set_value(defaultFiscalYear);
+  initializing = false;
+  if (defaultCompany && defaultFiscalYear) setTimeout(load, 0);
   const escape = value => frappe.utils.escape_html(String(value ?? ""));
   const format = (value, precision=0) => frappe.format(Number(value || 0), {fieldtype:"Float", precision});
   const money = (value, currency) => format(value, 2) + (currency ? " " + escape(currency) : "");
@@ -94,7 +117,6 @@ frappe.pages["revenue-budget-dashboard"].on_page_load = function (wrapper) {
   }
   function render(data) {
     const cur = data.currency;
-    const monthTotal = data.monthly_net.reduce((a,b)=>a+b,0);
     const customer = data.top_customer;
     const qty = data.top_item_qty;
     const value = data.top_item_value;
@@ -127,7 +149,10 @@ frappe.pages["revenue-budget-dashboard"].on_page_load = function (wrapper) {
         ${panel(__("Top Items by Planned Net Value"),rank(data.top_items_value,"net",cur,topValueMax))}
         ${panel(__("Top 10 Customers"),rank(data.top_customers,"net",cur,topCustomerMax),true)}
       </div>`);
-    if (!data.budget_count) return;
+    if (!data.budget_count) {
+      root.find(".rbd-panels").html('<div class="rbd-empty">' + __("No active submitted budgets match the selected filters") + '</div>');
+      return;
+    }
     createChart(".rbd-monthly",{
       type:"bar",height:280,data:{labels:data.months,datasets:[
         {name:__("Before Discount"),values:data.monthly_gross},
