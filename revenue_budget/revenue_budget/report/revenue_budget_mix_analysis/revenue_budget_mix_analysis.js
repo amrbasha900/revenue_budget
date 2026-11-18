@@ -48,7 +48,7 @@ frappe.query_reports["Revenue Budget Mix Analysis"] = {
       }
     }},{
     fieldname:"value_mode", label:__("Display"), fieldtype:"Select",
-    options:"Percentage\\nBefore Discount\\nAfter Discount", default:"Percentage", on_change(report) {
+    options:"Percentage\nBefore Discount\nAfter Discount", default:"Percentage", on_change(report) {
       report.refresh(true);
       if (revenue_budget.mix_dashboard) revenue_budget.mix_dashboard.refresh(report);
     }},{
