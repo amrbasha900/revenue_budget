@@ -63,7 +63,7 @@ revenue_budget.mix_dashboard = {
     const safe = (value) => frappe.utils.escape_html(String(value ?? ""));
     const fmt = (num) => frappe.format(Number(num || 0), {fieldtype:"Float", precision:2});
     const kpis = [
-      [__("Planned Net Revenue (Base)"), fmt(data.total)],
+      [__(data.is_percent ? "Selected Net Revenue (Base)" : (data.value_mode + " (Base)")), fmt(data.total)],
       [__("Customers"), data.customer_count],
       [__("Items"), data.item_count],
       [data.group_label + " · " + __("Groups"), data.group_count]
@@ -73,10 +73,10 @@ revenue_budget.mix_dashboard = {
         <div class="text-muted small">${safe(name)}</div><div style="font-size:22px;font-weight:700;margin-top:6px">${safe(value)}</div></div>`
     ).join(""));
     const titles = [
-      __("Annual Revenue by") + " " + data.group_label,
-      __("Monthly Revenue Trend"),
-      __("Monthly Revenue by") + " " + data.group_label,
-      __("Annual Revenue Share by") + " " + data.group_label
+      __(data.is_percent ? "Customer Mix % by" : "Annual Revenue by") + " " + data.group_label,
+      __(data.is_percent ? "Monthly Customer Mix %" : "Monthly Revenue Trend"),
+      __(data.is_percent ? "Monthly Customer Mix % by" : "Monthly Revenue by") + " " + data.group_label,
+      __(data.is_percent ? "Annual Customer Mix % by" : "Annual Revenue Share by") + " " + data.group_label
     ];
     panel.find(".rb-title").each((idx, element) => $(element).text(titles[idx]));
     const targets = ["groups","months","stack","share"];

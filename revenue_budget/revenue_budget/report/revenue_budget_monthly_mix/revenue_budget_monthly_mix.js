@@ -47,6 +47,11 @@ frappe.query_reports["Revenue Budget Monthly Mix"] = {
         if (revenue_budget.mix_dashboard) revenue_budget.mix_dashboard.refresh(report);
       }
     }},{
+    fieldname:"value_mode", label:__("Display"), fieldtype:"Select",
+    options:"Percentage\\nBefore Discount\\nAfter Discount", default:"Percentage", on_change(report) {
+      report.refresh(true);
+      if (revenue_budget.mix_dashboard) revenue_budget.mix_dashboard.refresh(report);
+    }},{
     fieldname:"group_by", label:__("Tree Grouping"), fieldtype:"Select", options:"\nNone\nCustomer Category\nItem Group\nCustomer Category > Item Group\nItem Group > Customer Category", default:"None", on_change(report) {
       if (!report._no_refresh) {
         report.refresh(true);
