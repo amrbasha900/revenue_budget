@@ -15,9 +15,9 @@ frappe.pages["revenue-budget-dashboard"].on_page_load = function (wrapper) {
       .rbd-filter{min-width:0}.rbd-filter .form-group{margin-bottom:0}.rbd-filter .control-label{font-size:12px;font-weight:600}
       .rbd-summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-bottom:18px}
       .rbd-card,.rbd-panel{background:var(--card-bg,var(--fg-color));border:1px solid var(--border-color);border-radius:13px;min-width:0}
-      .rbd-card{padding:17px;min-height:107px}
+      .rbd-card{padding:17px;min-height:118px;display:flex;flex-direction:column;gap:6px;overflow:hidden}
       .rbd-label{font-size:12px;color:var(--text-muted);line-height:1.5}
-      .rbd-val{font-size:23px;line-height:1.5;font-weight:750;margin-top:7px;overflow-wrap:anywhere}
+      .rbd-val{font-size:clamp(17px,1.5vw,23px);line-height:1.3;font-weight:750;overflow-wrap:break-word;word-break:normal;font-variant-numeric:tabular-nums}.rbd-val.rbd-num{white-space:normal;direction:ltr;text-align:start}.rbd-card small{display:block;overflow-wrap:anywhere;line-height:1.45}
       .rbd-card small{font-size:11px;color:var(--text-muted)}
       .rbd-panels{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
       .rbd-panel{padding:19px;overflow:hidden}
@@ -81,10 +81,10 @@ frappe.pages["revenue-budget-dashboard"].on_page_load = function (wrapper) {
   initializing = false;
   if (defaultCompany && defaultFiscalYear) setTimeout(load, 0);
   const escape = value => frappe.utils.escape_html(String(value ?? ""));
-  const format = (value, precision=0) => frappe.format(Number(value || 0), {fieldtype:"Float", precision});
+  // frappe.format returns markup (e.g. numeric alignment divs); never embed it in a KPI value.\n  const numberFormatter = precision => new Intl.NumberFormat("en-US", {minimumFractionDigits:precision,maximumFractionDigits:precision});\n  const format = (value, precision=0) => numberFormatter(precision).format(Number(value || 0));
   const money = (value, currency) => format(value, 2) + (currency ? " " + escape(currency) : "");
-  const card = (label, value, subtitle="") => `<div class="rbd-card">
-    <div class="rbd-label">${escape(label)}</div><div class="rbd-val">${value}</div>
+  const card = (label, value, subtitle="", numeric=false) => `<div class="rbd-card">
+    <div class="rbd-label">${escape(label)}</div><div class="rbd-val ${numeric ? "rbd-num" : ""}" title="${escape(String(value).replace(/<[^>]*>/g, ""))}">${value}</div>
     <small>${escape(subtitle)}</small></div>`;
   const panel = (title, body, wide=false) => `<section class="rbd-panel ${wide?"wide":""}">
     <h4>${escape(title)}</h4>${body}</section>`;
@@ -123,17 +123,17 @@ frappe.pages["revenue-budget-dashboard"].on_page_load = function (wrapper) {
     const best = data.best_month;
     const topGroup = data.item_groups[0];
     const kpis = [
-      card(__("Planned Net Revenue"), money(data.net,cur), __("After discount")),
-      card(__("Planned Gross Revenue"), money(data.gross,cur), __("Before discount")),
-      card(__("Planned Discount"), money(data.discount,cur), format(data.discount_rate,1)+"%"),
-      card(__("Active Budgets"), format(data.budget_count), __("Current versions only")),
-      card(__("Customers"), format(data.customer_count)),
-      card(__("Items"), format(data.item_count)),
+      card(__("Planned Net Revenue"), money(data.net,cur), __("After discount"), true),
+      card(__("Planned Gross Revenue"), money(data.gross,cur), __("Before discount"), true),
+      card(__("Planned Discount"), money(data.discount,cur), format(data.discount_rate,1)+"%", true),
+      card(__("Active Budgets"), format(data.budget_count), __("Current versions only"), true),
+      card(__("Customers"), format(data.customer_count), "", true),
+      card(__("Items"), format(data.item_count), "", true),
       card(__("Top Customer"), customer?escape(customer.label):"—", customer?money(customer.net,cur):""),
       card(__("Top Item by Value"), value?escape(value.name):"—", value?money(value.net,cur):""),
       card(__("Top Item by Quantity"), qty?escape(qty.name):"—", qty?format(qty.qty,2)+" "+escape(qty.uom):""),
       card(__("Best Month"), best?escape(best.month):"—", best?money(best.value,cur):""),
-      card(__("Top 5 Customers Share"), format(data.top_5_share,1)+"%", __("Revenue concentration")),
+      card(__("Top 5 Customers Share"), format(data.top_5_share,1)+"%", __("Revenue concentration"), true),
       card(__("Leading Item Group"), topGroup?escape(topGroup.name):"—", topGroup?money(topGroup.value,cur):"")
     ].join("");
     const topCustomerMax = data.top_customers[0]?.net || 0;
