@@ -1,0 +1,23 @@
+{
+  "doctype": "Page",
+  "name": "revenue-budget-dashboard",
+  "page_name": "revenue-budget-dashboard",
+  "title": "Revenue Budget Dashboard",
+  "module": "Revenue Budget",
+  "standard": "Yes",
+  "system_page": 0,
+  "roles": [
+    {
+      "role": "System Manager"
+    },
+    {
+      "role": "Accounts Manager"
+    },
+    {
+      "role": "Sales Manager"
+    },
+    {
+      "role": "Accounts User"
+    }
+  ]
+}
