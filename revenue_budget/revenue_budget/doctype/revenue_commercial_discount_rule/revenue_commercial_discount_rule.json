@@ -1,0 +1,165 @@
+{
+  "doctype": "DocType",
+  "name": "Revenue Commercial Discount Rule",
+  "module": "Revenue Budget",
+  "istable": 1,
+  "editable_grid": 1,
+  "is_submittable": 0,
+  "track_changes": 0,
+  "autoname": "",
+  "field_order": [
+    "rule_code",
+    "rule_title",
+    "calculation_type",
+    "percentage",
+    "fixed_amount",
+    "fixed_frequency",
+    "target_period",
+    "tier_method",
+    "base_type",
+    "scope_type",
+    "item_group",
+    "item_code",
+    "from_month",
+    "to_month",
+    "settlement_type",
+    "settlement_month",
+    "settlement_year"
+  ],
+  "fields": [
+    {
+      "fieldname": "rule_code",
+      "fieldtype": "Data",
+      "label": "Rule Code",
+      "description": "Unique short identifier within this plan (e.g. DISC01). Tier rows link to it.",
+      "reqd": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "rule_title",
+      "fieldtype": "Data",
+      "label": "Discount Name",
+      "description": "Business meaning, e.g. Trade Discount, Quarterly Support, Annual Target Incentive.",
+      "reqd": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "calculation_type",
+      "fieldtype": "Select",
+      "label": "Calculation Type",
+      "description": "Percentage: sales × rate; Fixed Amount: a fixed amount once/monthly; Tiered: choose threshold based on monthly, quarterly or annual planned sales.",
+      "options": "Percentage\nFixed Amount\nTiered",
+      "reqd": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "percentage",
+      "fieldtype": "Percent",
+      "label": "Discount %",
+      "description": "Percentage of eligible planned sales; relevant only when Calculation Type is Percentage.",
+      "default": "0"
+    },
+    {
+      "fieldname": "fixed_amount",
+      "fieldtype": "Currency",
+      "label": "Fixed Amount (Base)",
+      "description": "Amount in company base currency. Can repeat monthly or be applied only once.",
+      "default": "0"
+    },
+    {
+      "fieldname": "fixed_frequency",
+      "fieldtype": "Select",
+      "label": "Fixed Frequency",
+      "description": "Monthly = once each applicable month; Once = only one time in the first applicable sales month.",
+      "options": "\nMonthly\nOnce"
+    },
+    {
+      "fieldname": "target_period",
+      "fieldtype": "Select",
+      "label": "Tier Target Period",
+      "description": "Monthly: test each month; Quarterly: combine each calendar quarter; Annual: combine full fiscal year before choosing a tier.",
+      "options": "\nMonthly\nQuarterly\nAnnual"
+    },
+    {
+      "fieldname": "tier_method",
+      "fieldtype": "Select",
+      "label": "Tier Calculation Method",
+      "description": "Whole Band: selected tier percentage applies to all eligible sales; Progressive: percentages apply separately to portions of sales in each band.",
+      "options": "\nWhole Band\nProgressive"
+    },
+    {
+      "fieldname": "base_type",
+      "fieldtype": "Select",
+      "label": "Calculation Base",
+      "description": "Before Item Discount uses gross planned item values; After Item Discount uses item revenue after existing planned line discount. Does not deduct other commercial rules.",
+      "options": "Before Item Discount\nAfter Item Discount",
+      "default": "After Item Discount",
+      "reqd": 1
+    },
+    {
+      "fieldname": "scope_type",
+      "fieldtype": "Select",
+      "label": "Applicable Items",
+      "description": "All Items includes all budget items; Item Group or Item limits the eligible base. Fixed amounts are not affected by this filter.",
+      "options": "All Items\nItem Group\nItem",
+      "default": "All Items",
+      "reqd": 1
+    },
+    {
+      "fieldname": "item_group",
+      "fieldtype": "Link",
+      "label": "Item Group",
+      "description": "Only the selected item group is included when Applicable Items = Item Group.",
+      "options": "Item Group"
+    },
+    {
+      "fieldname": "item_code",
+      "fieldtype": "Link",
+      "label": "Item",
+      "description": "Only the selected item is included when Applicable Items = Item.",
+      "options": "Item"
+    },
+    {
+      "fieldname": "from_month",
+      "fieldtype": "Select",
+      "label": "From Month",
+      "description": "Start month for eligibility or recurrence during the plan year.",
+      "options": "January\nFebruary\nMarch\nApril\nMay\nJune\nJuly\nAugust\nSeptember\nOctober\nNovember\nDecember",
+      "reqd": 1,
+      "default": "January"
+    },
+    {
+      "fieldname": "to_month",
+      "fieldtype": "Select",
+      "label": "To Month",
+      "description": "End month for eligibility or recurrence during the plan year.",
+      "options": "January\nFebruary\nMarch\nApril\nMay\nJune\nJuly\nAugust\nSeptember\nOctober\nNovember\nDecember",
+      "reqd": 1,
+      "default": "December"
+    },
+    {
+      "fieldname": "settlement_type",
+      "fieldtype": "Select",
+      "label": "Effect on Expected Collection",
+      "description": "With Sales Collection: discount follows eligible sales to their planned collection month; Specific Month: discount reduces collection in the selected month/year once.",
+      "options": "With Sales Collection\nSpecific Month",
+      "default": "With Sales Collection",
+      "reqd": 1
+    },
+    {
+      "fieldname": "settlement_month",
+      "fieldtype": "Select",
+      "label": "Specific Settlement Month",
+      "description": "Only used for Specific Month. For example, a one-time annual bonus settled in December.",
+      "options": "\nJanuary\nFebruary\nMarch\nApril\nMay\nJune\nJuly\nAugust\nSeptember\nOctober\nNovember\nDecember"
+    },
+    {
+      "fieldname": "settlement_year",
+      "fieldtype": "Int",
+      "label": "Specific Settlement Year",
+      "description": "Required for Specific Month. Can be following year so December incentives reduce next year's forecast.",
+      "default": "0"
+    }
+  ],
+  "permissions": []
+}
