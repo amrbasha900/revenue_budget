@@ -1,0 +1,54 @@
+{
+  "doctype": "DocType",
+  "name": "Revenue Commercial Tier",
+  "module": "Revenue Budget",
+  "istable": 1,
+  "editable_grid": 1,
+  "is_submittable": 0,
+  "track_changes": 0,
+  "autoname": "",
+  "field_order": [
+    "rule_code",
+    "min_sales",
+    "max_sales",
+    "discount_percentage",
+    "fixed_bonus"
+  ],
+  "fields": [
+    {
+      "fieldname": "rule_code",
+      "fieldtype": "Data",
+      "label": "Rule Code",
+      "description": "Must exactly match a discount rule whose Calculation Type is Tiered.",
+      "reqd": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "min_sales",
+      "fieldtype": "Currency",
+      "label": "Sales From (Inclusive)",
+      "description": "Lower boundary in company base currency; bands must not overlap.",
+      "reqd": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "max_sales",
+      "fieldtype": "Currency",
+      "label": "Sales To (Exclusive)",
+      "description": "Upper boundary in base currency. Leave zero for no upper limit (last band)."
+    },
+    {
+      "fieldname": "discount_percentage",
+      "fieldtype": "Percent",
+      "label": "Tier Discount %",
+      "description": "Whole Band: percentage for entire eligible sales amount; Progressive: percentage on this sales band's portion."
+    },
+    {
+      "fieldname": "fixed_bonus",
+      "fieldtype": "Currency",
+      "label": "Tier Fixed Bonus (Base)",
+      "description": "Additional fixed amount when this tier is reached. For Progressive mode only the final reached tier's bonus is applied."
+    }
+  ],
+  "permissions": []
+}

@@ -1,0 +1,162 @@
+{
+  "doctype": "DocType",
+  "name": "Revenue Commercial Plan",
+  "module": "Revenue Budget",
+  "istable": 0,
+  "editable_grid": 0,
+  "is_submittable": 1,
+  "track_changes": 1,
+  "autoname": "hash",
+  "field_order": [
+    "company",
+    "customer",
+    "fiscal_year",
+    "customer_category",
+    "currency",
+    "debt_age_months",
+    "plan_status",
+    "revision_no",
+    "supersedes",
+    "discount_rules",
+    "tier_rules",
+    "help_note"
+  ],
+  "fields": [
+    {
+      "fieldname": "company",
+      "fieldtype": "Link",
+      "label": "Company",
+      "description": "Company whose monthly budget is used. Collection and discounts use its base currency.",
+      "options": "Company",
+      "reqd": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "customer",
+      "fieldtype": "Link",
+      "label": "Customer",
+      "description": "Customer whose budgets and collections are planned; one active plan per company, customer and year.",
+      "options": "Customer",
+      "reqd": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "fiscal_year",
+      "fieldtype": "Link",
+      "label": "Fiscal Year",
+      "description": "Year of monthly planned sales. Prior-year November/December collections can flow into this year's opening months.",
+      "options": "Fiscal Year",
+      "reqd": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "customer_category",
+      "fieldtype": "Link",
+      "label": "Customer Category",
+      "description": "For analysis and filtering only; it does not change how a discount is calculated.",
+      "options": "Revenue Budget Customer Category"
+    },
+    {
+      "fieldname": "currency",
+      "fieldtype": "Link",
+      "label": "Plan Currency",
+      "description": "Reference currency. Calculations use the company's base currency from monthly budgets.",
+      "options": "Currency",
+      "read_only": 1
+    },
+    {
+      "fieldname": "debt_age_months",
+      "fieldtype": "Int",
+      "label": "Collection Lag (Months)",
+      "description": "0 = collect in sale month; 1 = next month; 2 = sale in January collected in March. Also carries prior-year plans into this year.",
+      "default": "2",
+      "reqd": 1
+    },
+    {
+      "fieldname": "plan_status",
+      "fieldtype": "Select",
+      "label": "Plan Status",
+      "description": "Draft can be edited; Active participates in reports; Superseded remains as history; Cancelled is excluded.",
+      "options": "Draft\nActive\nSuperseded\nCancelled",
+      "default": "Draft",
+      "read_only": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "revision_no",
+      "fieldtype": "Int",
+      "label": "Revision",
+      "description": "Version number, advanced when a revised plan is activated.",
+      "default": "1",
+      "read_only": 1
+    },
+    {
+      "fieldname": "supersedes",
+      "fieldtype": "Link",
+      "label": "Previous Plan",
+      "description": "Historical plan version replaced by this one.",
+      "options": "Revenue Commercial Plan",
+      "read_only": 1
+    },
+    {
+      "fieldname": "discount_rules",
+      "fieldtype": "Table",
+      "label": "Commercial Discount Rules",
+      "description": "Each row is one business discount. Different rows can use percentage, fixed amount, or tiers, independently.",
+      "options": "Revenue Commercial Discount Rule"
+    },
+    {
+      "fieldname": "tier_rules",
+      "fieldtype": "Table",
+      "label": "Tier Thresholds",
+      "description": "Use the same Rule Code as the parent discount rule. Each band has lower/upper sales threshold plus percent and optional fixed bonus.",
+      "options": "Revenue Commercial Tier"
+    },
+    {
+      "fieldname": "help_note",
+      "fieldtype": "Small Text",
+      "label": "Planning Note",
+      "description": "Planning only. No Sales Invoice, Payment Entry, or accounting transactions are created.",
+      "read_only": 1,
+      "default": "Forecast only; all amounts are planned, not actual."
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "report": 1,
+      "export": 1,
+      "create": 1,
+      "write": 1,
+      "submit": 1
+    },
+    {
+      "role": "Accounts Manager",
+      "read": 1,
+      "report": 1,
+      "export": 1,
+      "create": 1,
+      "write": 1,
+      "submit": 1
+    },
+    {
+      "role": "Sales Manager",
+      "read": 1,
+      "report": 1,
+      "export": 1,
+      "create": 1,
+      "write": 1,
+      "submit": 0
+    },
+    {
+      "role": "Accounts User",
+      "read": 1,
+      "report": 1,
+      "export": 1,
+      "create": 0,
+      "write": 0,
+      "submit": 0
+    }
+  ]
+}
