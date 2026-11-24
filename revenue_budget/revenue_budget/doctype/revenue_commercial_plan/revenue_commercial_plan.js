@@ -26,9 +26,31 @@ frappe.ui.form.on("Revenue Commercial Plan", {
 });
 
 frappe.ui.form.on("Revenue Commercial Discount Rule", {
-  calculation_type(frm) { revenue_commercial_toggle(frm); },
-  scope_type(frm) { revenue_commercial_toggle(frm); },
-  settlement_type(frm) { revenue_commercial_toggle(frm); },
+  calculation_type(frm, cdt, cdn) {
+    const row = locals[cdt][cdn];
+    const keep = {
+      "Percentage": ["percentage"],
+      "Fixed Amount": ["fixed_amount", "fixed_frequency"],
+      "Tiered": ["target_period", "tier_method"]
+    }[row.calculation_type] || [];
+    ["percentage","fixed_amount","fixed_frequency","target_period","tier_method"].forEach(key => {
+      if (!keep.includes(key)) frappe.model.set_value(cdt, cdn, key, key === "percentage" || key === "fixed_amount" ? 0 : "");
+    });
+    revenue_commercial_toggle(frm);
+  },
+  scope_type(frm, cdt, cdn) {
+    const row = locals[cdt][cdn];
+    if (row.scope_type !== "Item") frappe.model.set_value(cdt, cdn, "item_code", "");
+    if (row.scope_type !== "Item Group") frappe.model.set_value(cdt, cdn, "item_group", "");
+    revenue_commercial_toggle(frm);
+  },
+  settlement_type(frm, cdt, cdn) {
+    if (locals[cdt][cdn].settlement_type !== "Specific Month") {
+      frappe.model.set_value(cdt, cdn, "settlement_month", "");
+      frappe.model.set_value(cdt, cdn, "settlement_year", 0);
+    }
+    revenue_commercial_toggle(frm);
+  },
   fixed_frequency(frm) { revenue_commercial_toggle(frm); },
   form_render(frm) { revenue_commercial_toggle(frm); revenue_commercial_help(frm); },
 });
