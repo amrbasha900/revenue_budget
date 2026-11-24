@@ -12,7 +12,7 @@ MONTHS = ("January", "February", "March", "April", "May", "June", "July",
 
 class RevenueCommercialPlan(Document):
     def autoname(self):
-        clean = lambda value: re.sub(r"[^\\w-]+", "-", str(value), flags=re.UNICODE).strip("-")
+        clean = lambda value: re.sub(r"[^\w-]+", "-", str(value), flags=re.UNICODE).strip("-")
         self.name = "RCP-{}-{}-{}-V{}".format(
             clean(self.company), clean(self.customer), clean(self.fiscal_year), int(self.revision_no or 1)
         )
@@ -57,3 +57,43 @@ class RevenueCommercialPlan(Document):
     def on_trash(self):
         if self.docstatus or self.plan_status != "Draft":
             frappe.throw(_("Historical plans must be retained."))
+
+@frappe.whitelist()
+def create_revision(name):
+    if not frappe.has_permission("Revenue Commercial Plan", "create"):
+        frappe.throw(_("Not permitted"), frappe.PermissionError)
+    old = frappe.get_doc("Revenue Commercial Plan", name)
+    old.check_permission("read")
+    if old.plan_status != "Active" or old.docstatus != 1:
+        frappe.throw(_("Only an active submitted plan can be revised."))
+    if not frappe.has_permission("Company", "read", old.company):
+        frappe.throw(_("Not permitted for company"), frappe.PermissionError)
+    duplicate = frappe.get_all(
+        "Revenue Commercial Plan",
+        filters={"supersedes": old.name, "docstatus": 0},
+        limit=1, pluck="name",
+    )
+    if duplicate:
+        frappe.throw(_("A draft revision already exists: {0}").format(duplicate[0]))
+    new = frappe.new_doc("Revenue Commercial Plan")
+    for key in ("company", "customer", "fiscal_year", "customer_category", "debt_age_months"):
+        new.set(key, old.get(key))
+    new.supersedes = old.name
+    new.revision_no = int(old.revision_no or 1) + 1
+    for row in old.discount_rules:
+        new.append("discount_rules", {
+            key: row.get(key) for key in (
+                "rule_code", "rule_title", "calculation_type", "percentage", "fixed_amount",
+                "fixed_frequency", "target_period", "tier_method", "base_type", "scope_type",
+                "item_group", "item_code", "from_month", "to_month", "settlement_type",
+                "settlement_month", "settlement_year",
+            )
+        })
+    for row in old.tier_rules:
+        new.append("tier_rules", {
+            key: row.get(key) for key in (
+                "rule_code", "min_sales", "max_sales", "discount_percentage", "fixed_bonus",
+            )
+        })
+    new.insert()
+    return new.name

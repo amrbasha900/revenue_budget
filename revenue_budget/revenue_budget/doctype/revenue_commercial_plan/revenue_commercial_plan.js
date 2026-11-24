@@ -7,16 +7,13 @@ frappe.ui.form.on("Revenue Commercial Plan", {
     }
     if (frm.doc.docstatus === 1 && frm.doc.plan_status === "Active") {
       frm.add_custom_button(__("Create Revision"), () => {
-        frappe.new_doc("Revenue Commercial Plan", {
-          company: frm.doc.company,
-          customer: frm.doc.customer,
-          fiscal_year: frm.doc.fiscal_year,
-          customer_category: frm.doc.customer_category,
-          debt_age_months: frm.doc.debt_age_months,
-          supersedes: frm.doc.name,
-          revision_no: (frm.doc.revision_no || 1) + 1,
+        frappe.call({
+          method: "revenue_budget.revenue_budget.doctype.revenue_commercial_plan.revenue_commercial_plan.create_revision",
+          args: {name: frm.doc.name}, freeze: true,
+          callback: result => {
+            if (result.message) frappe.set_route("Form", "Revenue Commercial Plan", result.message);
+          }
         });
-        frappe.msgprint(__("Copy the desired discount rules and tiers from the active plan into this revision before submission."));
       }, __("Planning"));
     }
   },
