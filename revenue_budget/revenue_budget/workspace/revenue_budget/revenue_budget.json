@@ -6,7 +6,7 @@
   "public": 1,
   "is_hidden": 0,
   "icon": "chart",
-  "content": "[{\"type\":\"header\",\"data\":{\"text\":\"Revenue Budget\"}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Revenue Budget Dashboard\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Customer Revenue Budget\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Revenue Budget Change Request\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Revenue Budget Summary\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Revenue Budget Monthly Mix\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Revenue Budget Mix Analysis\",\"col\":3}}]",
+  "content": "[{\"type\":\"header\",\"data\":{\"text\":\"Revenue Budget\"}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Revenue Budget Dashboard\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Customer Revenue Budget\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Revenue Budget Change Request\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Revenue Budget Summary\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Revenue Budget Monthly Mix\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Revenue Budget Mix Analysis\",\"col\":3}},{\"type\":\"header\",\"data\":{\"text\":\"Commercial Planning & Collection\"}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Annual Customer Commercial Plan\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"AR Estimated Collection\",\"col\":3}}]",
   "shortcuts": [
     {
       "type": "DocType",
@@ -37,6 +37,16 @@
       "type": "Page",
       "link_to": "revenue-budget-dashboard",
       "label": "Revenue Budget Dashboard"
+    },
+    {
+      "type": "DocType",
+      "link_to": "Revenue Commercial Plan",
+      "label": "Annual Customer Commercial Plan"
+    },
+    {
+      "type": "Report",
+      "link_to": "Revenue Estimated Collection",
+      "label": "AR Estimated Collection"
     }
   ],
   "links": [],
